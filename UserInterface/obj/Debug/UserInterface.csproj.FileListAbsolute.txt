@@ -1,0 +1,7 @@
+F:\с#\exam1\piatnashki\UserInterface\bin\Debug\UserInterface.dll
+F:\с#\exam1\piatnashki\UserInterface\bin\Debug\UserInterface.pdb
+F:\с#\exam1\piatnashki\UserInterface\bin\Debug\BL.dll
+F:\с#\exam1\piatnashki\UserInterface\bin\Debug\BL.pdb
+F:\с#\exam1\piatnashki\UserInterface\obj\Debug\UserInterface.csprojResolveAssemblyReference.cache
+F:\с#\exam1\piatnashki\UserInterface\obj\Debug\UserInterface.dll
+F:\с#\exam1\piatnashki\UserInterface\obj\Debug\UserInterface.pdb
