@@ -1,1 +1,9 @@
 F:\с#\exam1\piatnashki\piatnashki\bin\Debug\piatnashki.exe.config
+F:\с#\exam1\пятнашки вер2\piatnashki\bin\Debug\piatnashki.exe.config
+F:\с#\exam1\пятнашки вер2\piatnashki\bin\Debug\piatnashki.exe
+F:\с#\exam1\пятнашки вер2\piatnashki\bin\Debug\piatnashki.pdb
+F:\с#\exam1\пятнашки вер2\piatnashki\bin\Debug\BL.dll
+F:\с#\exam1\пятнашки вер2\piatnashki\bin\Debug\BL.pdb
+F:\с#\exam1\пятнашки вер2\piatnashki\obj\Debug\piatnashki.csprojResolveAssemblyReference.cache
+F:\с#\exam1\пятнашки вер2\piatnashki\obj\Debug\piatnashki.exe
+F:\с#\exam1\пятнашки вер2\piatnashki\obj\Debug\piatnashki.pdb

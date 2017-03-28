@@ -1,18 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BL
 {
-    struct Cell
+     public abstract class Cell<T> where T: IComparable<T>
     {
-        private int _num;        //Номер фишки
+        public readonly ICellable _c;
+        public Cell (ICellable c, T num)
+        {
+            _c = c;
+           
+            _num = num;
+        }
         /// <summary>
-        /// Конструктор номера фишки
+        /// Свойства номера фишки
         /// </summary>
-        public int num
+        public T num
         {
             get
             {
@@ -23,5 +29,8 @@ namespace BL
                 _num = value;       //Установить номер фишки
             }
         }
+        public abstract void Move();
+        private T _num;        //Номер фишки
+       
     }
 }

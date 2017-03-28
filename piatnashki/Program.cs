@@ -14,108 +14,52 @@ namespace piatnashki
         /// <summary>
         /// Размерность поля по-умолчанию
         /// </summary>
-        public const int defSize = 4 ;                   
+                          
 
         static void Main(string[] args)
         {
-            
-            int size = defSize; 
-            size = UI.GetSizeOfField(defSize);          //Задание размерности игрового поля
-            
-            Field num = new Field(size) ;
-            UI.NewGame();
-            num.setNums(size);                  //Заполнение игрового поля
-            
+            bool newGame = true;
             bool cont = true;
-            BL.Action Move;
-            int iCount = 0;
+            do{
+                cont = true;
+                int size = Field.defSize; 
+                size = UI.GetSizeOfField(Field.defSize);          //Задание размерности игрового поля
+            
+                Field num = new Field(size) ;
+                num.MovingUp += num.MoveUp;
+                num.MovingUp += num.AddCounter;
+                num.MovingRight += num.MoveRight;
+                num.MovingRight += num.AddCounter;
+                num.MovingDown += num.MoveDown;
+                num.MovingDown += num.AddCounter;
+                num.MovingLeft += num.MoveLeft;
+                num.MovingLeft += num.AddCounter;
+                num.MovingUp += UI.Counter;
+                num.MovingRight += UI.Counter;
+                num.MovingLeft += UI.Counter;
+                num.MovingDown += UI.Counter;
 
-            do
-            {
-                bool newGame = false;
+                UI.NewGame();
 
-                UI.NameOfGame(size, defSize);                    //Название игры
-                UI.MenuOfGame(size, defSize);                    //Меню игры
-                UI.InitField(size);                              //Инициализация игрового поля
-                UI.ShowField(num);                              //Отображение игрового поля
+                UI.NameOfGame ( size, Field.defSize );                    //Название игры
+                UI.MenuOfGame ( size, Field.defSize );                    //Меню игры
+                UI.InitField ( size );                              //Инициализация игрового поля
+           
+                do
+                {
+                    newGame = false;
+                    UI.ShowField ( num );                              //Отображение игрового поля
+                
 
-                if (num.IsWinGame(size))                          //Проверка на собранность головоломки
-                {
-                    UI.Winner();
-                    UI.MenuAfterWin(iCount);
-                }
-                Move = Field.GetUserAction();
-                switch (Move)
-                {
-                    case BL.Action.Up:
+                    if (num.IsWinGame(size))                          //Проверка на собранность головоломки
                     {
-                        num.MoveUp(ref iCount, size, defSize, Move);
-                        if (num.IsWrongWay)
-                        {
-                            UI.WrongWay(size, defSize);
-                        }
-                        break;
+                        UI.Winner();
+                        UI.MenuAfterWin(num.GetCount);
                     }
-                    case BL.Action.Down:
-                    {
-                        num.MoveDown(ref iCount, size, defSize, Move);
-                        if (num.IsWrongWay)
-                        {
-                            UI.WrongWay(size, defSize);
-                        }
-                        break;
-                    }
-                    case BL.Action.Left:
-                    {
-                        num.MoveLeft(ref iCount, size, defSize, Move);
-                        if (num.IsWrongWay)
-                        {
-                            UI.WrongWay(size, defSize);
-                        }
-                        break;
-                    }
-                    case BL.Action.Right:
-                    {
-                        num.MoveRight(ref iCount, size, defSize, Move);
-                        if (num.IsWrongWay)
-                        {
-                            UI.WrongWay(size, defSize);
-                        }
-                        break;
-                    }
-                    case BL.Action.Retry:
-                    {
-                        size = UI.GetSizeOfField(defSize);
-                        num = new Field(size);
-                        UI.NewGame();
-                        num.setNums(size);
-                        iCount = 0;
-                        newGame = true;
-                        break;
-                    }
-                    case BL.Action.Exit:
-                    {
-                        cont = false;
-                        Console.Clear();
-                        Console.SetCursorPosition(24, 10);
-                        Console.WriteLine("До свидания!!!");
-                        Thread.Sleep(2000);
-                        break;
-                    }
-                }
-                Console.Clear();
-                if (!cont)              //прервать не добавляя счетчик
-                {
-                    break;
-                }
-                if (newGame)            //продолжить не добавляя счетчик
-                {
-                    continue;
-                }
-                num.IsWrongWay = false;
-                iCount++;
-                UI.Counter(iCount,size,defSize);
-            } while (cont);
+                    UI.GetUserAction (num, ref newGame, ref cont);
+                
+                } while (cont);
+            }while(newGame);
         }
     }
 }

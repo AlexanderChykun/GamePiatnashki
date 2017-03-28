@@ -8,29 +8,108 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    /// <summary>
-    /// Перечисление действий пользователя
-    /// </summary>
-    public enum Action
+    public class MovingEventArgs : EventArgs
     {
-        NoAction = 0,
-        Left,
-        Right,
-        Up,
-        Down,
-        Retry,
-        Exit
-    } 
 
-    public struct Field
+    }
+    public delegate void Moving ( object sender, MovingEventArgs arg );
+    public class Field: ICellable
     {
+        public const int defSize = 4;
+        public Field (int size = defSize)
+        {
+            _nums = new Button[size, size];
+            setNums ( size );
+            sortArr = new int[size, size];
+            sortArr = FillingSortArr ( size, out sortArr );
+        }
+        public event Moving MovingUp
+        {
+            add
+            {
+                _moveUp += value;
+            }
+            remove
+            {
+                _moveUp -= value;
+
+            }
+        }
+        public event Moving MovingDown
+        {
+            add
+            {
+                _moveDown += value;
+            }
+            remove
+            {
+                _moveDown -= value;
+
+            }
+        }
+        public event Moving MovingLeft
+        {
+            add
+            {
+                _moveLeft += value;
+            }
+            remove
+            {
+                _moveLeft -= value;
+
+            }
+        }
+        public event Moving MovingRight
+        {
+            add
+            {
+                _moveRight += value;
+            }
+            remove
+            {
+                _moveRight -= value;
+
+            }
+        }
+        public void onMoveUp ()
+        {
+            if ( _moveUp != null )
+            {
+                _moveUp ( this, new MovingEventArgs () );
+            }
+        }
+        public void onMoveDown ()
+        {
+            if ( _moveDown != null )
+            {
+                _moveDown ( this, new MovingEventArgs () );
+            }
+        }
+        public void onMoveLeft ()
+        {
+            if ( _moveLeft != null )
+            {
+                _moveLeft ( this, new MovingEventArgs () );
+            }
+        }
+        public void onMoveRight ()
+        {
+            if ( _moveRight != null )
+            {
+                _moveRight ( this, new MovingEventArgs () );
+            }
+        }
+        private Moving _moveUp;
+        private Moving _moveDown;
+        private Moving _moveLeft;
+        private Moving _moveRight;
         /// <summary>
         /// Заполнение отсортированного массива
         /// </summary>
         /// <param name="size">размер игрового поля</param>
         /// <param name="sortArr">размер игрового поля по-умолчанию</param>
         /// <returns></returns>
-        private static int[,] FillingSortArr(int size, out int[,] sortArr) 
+        private int[,] FillingSortArr(int size, out int[,] sortArr) 
         {
             sortArr = new int[size, size];
             int count = 0;
@@ -40,52 +119,16 @@ namespace BL
                 {
                     if ((i == (sortArr.GetLength(0) - 1)) && (j == (sortArr.GetLength(1) - 1)))
                     {
-                        sortArr[j, i] = 0;                              // последняя ячейка с пустым символом 
+                        sortArr[i, j] = 0;                              // последняя ячейка с пустым символом 
                         break;
                     }
                     count++;
-                    sortArr[j, i] = count;
+                    sortArr[i, j] = count;
                 }
             }
             return sortArr;
         }
-        /// <summary>
-        /// Инициализация массива
-        /// </summary>
-        /// <param name="size">размер игрового поля</param>
-        public Field(int size) 
-        {
-            _nums = new Cell[size, size];
-            _rowPosEmpty = 0;
-            _colPosEmpty = 0;
-            _isWrongWay = false;
-        }
-        /// <summary>
-        /// Получение символа
-        /// </summary>
-        /// <param name="i">номер строки</param>
-        /// <param name="j">номер столбца</param>
-        /// <returns></returns>
-        public int GetSymbol(int i, int j) 
-        {
-            return _nums[i, j].num;
-        }
-        /// <summary>
-        /// Получение длины столбца
-        /// </summary>
-        /// <returns></returns>
-        public int GetCol() 
-        {
-            return _nums.GetLength(0);
-        }
-        /// <summary>
-        /// Получение длины строки
-        /// </summary>
-        /// <returns></returns>
-        public int GetRow() 
-        {
-            return _nums.GetLength(1);
-        }
+       
         /// <summary>
         /// проверка на повторение чисел при заполнении
         /// </summary>
@@ -128,12 +171,13 @@ namespace BL
             {
                 for (int k = 0; k < _nums.GetLength(1); k++)
                 {
+                    _nums[r, k] = new Button ( this, FillingGameField.GetNumber ( size ) );
                     if ((r == (_nums.GetLength(0) - 1)) && (k == (_nums.GetLength(1) - 1)))
                     {
+                        
                         _nums[r, k].num = 0;                              // последняя ячейка с пустым символом 
                         break;
                     }
-                    _nums[r, k].num = GettingNumbers.GetNumber(size);              //присвоение числа
                     if (IsSameNum(r, k))                                    //проверка на повторение чисел
                     {
                         k--;
@@ -141,50 +185,7 @@ namespace BL
                 }
             }
         }
-        /// <summary>
-        /// Действия пользователя
-        /// </summary>
-        /// <returns></returns>
-        public static Action GetUserAction() 
-        {
-            Action аct = Action.NoAction;
-            ConsoleKeyInfo key = Console.ReadKey();
-
-            switch (key.Key)
-            {
-                case ConsoleKey.LeftArrow:
-                    {
-                        аct = Action.Left;
-                        break;
-                    }
-                case ConsoleKey.RightArrow:
-                    {
-                        аct = Action.Right;
-                        break;
-                    }
-                case ConsoleKey.UpArrow:
-                    {
-                        аct = Action.Up;
-                        break;
-                    }
-                case ConsoleKey.DownArrow:
-                    {
-                        аct = Action.Down;
-                        break;
-                    }
-                case ConsoleKey.Enter:
-                    {
-                        аct = Action.Retry;
-                        break;
-                    }
-                case ConsoleKey.Escape:
-                    {
-                        аct = Action.Exit;
-                        break;
-                    }
-            }
-            return аct;
-        }
+        
         /// <summary>
         /// Поиск пустого элемента
         /// </summary>
@@ -202,133 +203,165 @@ namespace BL
                 }
             }
         }
+        public Button GetCellAt ( int posX, int posY ) //Возвращает ячейку с координатами aCoord в массиве cells из _o
+        {
+            return _nums[posX, posY];
+        }
+        public bool GetEmptyNeighborCell ( int posX, int posY )
+        {
+            if ( East ( posX, posY ).num == 0 )
+            {
+                SearchEmptyCell ();
+              
+                return true;
+            }
+
+            if ( West ( posX, posY ).num == 0 )
+            {
+                SearchEmptyCell ();
+                return true;
+            }
+
+            if ( South ( posX, posY ).num == 0 )
+            {
+                SearchEmptyCell ();
+                return true;
+            }
+
+            if ( North ( posX, posY ).num == 0 )
+            {
+                SearchEmptyCell ();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public Button East ( int posX, int posY )
+        {
+
+            if ( posY != _nums.GetLength ( 0 ) - 1 )
+            {
+                return GetCellAt ( posX, posY + 1 ); 
+            }
+            else
+            {
+                return _nums[posX, posY];
+            }
+        }
+        public Button North ( int posX, int posY ) //Возвращает ячейку которая находится на севере от данной
+        {
+            if ( posX != 0)
+            {
+                return GetCellAt ( posX-1, posY ); 
+            }
+            else
+            {
+                return _nums[posX, posY];
+            }
+        }
+        public Button South ( int posX, int posY )  //Возвращает ячейку которая находится на юге от данной
+        {
+            if ( posX!= _nums.GetLength ( 1 ) - 1 )
+            {
+                return GetCellAt ( posX + 1, posY ); 
+            }
+            else
+            {
+                return _nums[posX, posY];
+            }
+        }
+        public Button West ( int posX, int posY ) //Возвращает ячейку которая находится на западе от данной
+        {
+            if ( posY != 0 )
+            {
+                return GetCellAt ( posX , posY-1 ); 
+            }
+            else
+            {
+                return _nums[posX, posY];
+            }
+        }
         /// <summary>
         /// Перемещение фишки вверх
         /// </summary>
-        /// <param name="iCount">счетчик</param>
-        /// <param name="size">размер игрового поля</param>
-        /// <param name="defSize">размер игрового поля по-умолчанию</param>
-        /// <param name="act">действие пользователя</param>
-        public void MoveUp(ref int iCount, int size, int defSize, Action act) 
+       
+        public void MoveUp(object o, MovingEventArgs arg) 
         {
             SearchEmptyCell();
             if (_rowPosEmpty == (_nums.GetLength(0) - 1))
             {
-                iCount--;
                 _isWrongWay = true; 
             }
             else
             {
-                SwapCells(act);
+                _isWrongWay = false;
+                Button tmp = _nums[_colPosEmpty, _rowPosEmpty];
+                _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty, _rowPosEmpty + 1];
+                _nums[_colPosEmpty, _rowPosEmpty + 1] = tmp;
             }
         }
         /// <summary>
         /// Перемещение фишки вниз
         /// </summary>
-        /// <param name="iCount">счетчик</param>
-        /// <param name="size">размер игрового поля</param>
-        /// <param name="defSize">размер игрового поля по-умолчанию</param>
-        /// <param name="act">действие пользователя</param>
-        public void MoveDown(ref int iCount, int size, int defSize, Action act) 
+      
+        public void MoveDown (object o, MovingEventArgs arg) 
         {
-            SearchEmptyCell();
-            if (_rowPosEmpty == 0)
+          
+            SearchEmptyCell ();
+            if ( _rowPosEmpty == 0 )
             {
-                iCount--;
                 _isWrongWay = true;
-               
             }
             else
             {
-                SwapCells(act);
+                _isWrongWay = false;
+                Button tmp = _nums[_colPosEmpty, _rowPosEmpty];
+                _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty, _rowPosEmpty - 1];
+                _nums[_colPosEmpty, _rowPosEmpty - 1] = tmp;
             }
         }
         /// <summary>
         /// Перемещение фишки влево
         /// </summary>
-        /// <param name="iCount">счетчик</param>
-        /// <param name="size">размер игрового поля</param>
-        /// <param name="defSize">размер игрового поля по-умолчанию</param>
-        /// <param name="act">действие пользователя</param>
-        public void MoveLeft(ref int iCount, int size, int defSize, Action act) 
+
+        public void MoveLeft (object o, MovingEventArgs arg) 
         {
-            SearchEmptyCell();
-            if (_colPosEmpty == (_nums.GetLength(1) - 1))
+           
+            SearchEmptyCell ();
+            if ( _colPosEmpty == (_nums.GetLength ( 0 ) - 1) )
             {
-                iCount--;
                 _isWrongWay = true;
             }
             else
             {
-                SwapCells(act);
+                _isWrongWay = false;
+                Button tmp = _nums[_colPosEmpty, _rowPosEmpty];
+                _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty + 1, _rowPosEmpty];
+                _nums[_colPosEmpty + 1, _rowPosEmpty] = tmp;
             }
         }
         /// <summary>
         /// Перемещение фишки вправо
         /// </summary>
-        /// <param name="iCount">счетчик</param>
-        /// <param name="size">размер игрового поля</param>
-        /// <param name="defSize">размер игрового поля по-умолчанию</param>
-        /// <param name="act">действие пользователя</param>
-        public void MoveRight(ref int iCount, int size, int defSize, Action act) 
+        
+        public void MoveRight (object o, MovingEventArgs arg) 
         {
-            SearchEmptyCell();
-            if (_colPosEmpty == 0)
+            SearchEmptyCell ();
+            if ( _colPosEmpty == 0 )
             {
-                iCount--;
                 _isWrongWay = true;
             }
             else
             {
-                SwapCells(act);
+                _isWrongWay = false;
+                Button tmp = _nums[_colPosEmpty, _rowPosEmpty];
+                _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty - 1, _rowPosEmpty];
+                _nums[_colPosEmpty - 1, _rowPosEmpty] = tmp;
             }
         }
-        /// <summary>
-        /// Обмен фишек
-        /// </summary>
-        /// <param name="act">действие пользователя</param>
-        public void SwapCells(Action act) 
-        {
-            switch (act)
-            {
-                case Action.NoAction:
-                    break;
-                case Action.Left:
-                    {
-                        Cell tmp = _nums[_colPosEmpty, _rowPosEmpty];
-                        _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty + 1, _rowPosEmpty];
-                        _nums[_colPosEmpty + 1, _rowPosEmpty] = tmp;
-                        break;
-                    }
-                case Action.Right:
-                    {
-                        Cell tmp = _nums[_colPosEmpty, _rowPosEmpty];
-                        _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty - 1, _rowPosEmpty];
-                        _nums[_colPosEmpty - 1, _rowPosEmpty] = tmp;
-                        break;
-                    }
-                case Action.Up:
-                    {
-                        Cell tmp = _nums[_colPosEmpty, _rowPosEmpty];
-                        _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty, _rowPosEmpty + 1];
-                        _nums[_colPosEmpty, _rowPosEmpty + 1] = tmp;
-                        break;
-                    }
-                case Action.Down:
-                    {
-                        Cell tmp = _nums[_colPosEmpty, _rowPosEmpty];
-                        _nums[_colPosEmpty, _rowPosEmpty] = _nums[_colPosEmpty, _rowPosEmpty - 1];
-                        _nums[_colPosEmpty, _rowPosEmpty - 1] = tmp;
-                        break;
-                    }
-                case Action.Retry:
-                    break;
-                case Action.Exit:
-                    break;
-                default:
-                    break;
-            }
-        }
+       
         /// <summary>
         /// Проверка собраной головоломки
         /// </summary>
@@ -337,8 +370,8 @@ namespace BL
         public bool IsWinGame(int size) 
         {
             bool win = false;
-            int[,] sortArr = new int[size, size];
-            sortArr = FillingSortArr(size, out sortArr);
+            //int[,] sortArr = new int[size, size];
+            //sortArr = FillingSortArr(size, out sortArr);
 
             for (int i = 0; i < _nums.GetLength(0); i++)
             {
@@ -362,20 +395,68 @@ namespace BL
             return win;
         }
         /// <summary>
-        /// Конструктор переменной ошибочного хода
+        /// Получение длины столбца
         /// </summary>
-        public bool IsWrongWay
+        /// <returns></returns>
+        public int GetCol ()
+        {
+            return _nums.GetLength ( 0 );
+        }
+        /// <summary>
+        /// Получение длины строки
+        /// </summary>
+        /// <returns></returns>
+        public int GetRow ()
+        {
+            return _nums.GetLength ( 1 );
+        }
+        /// <summary>
+        /// Получение символа
+        /// </summary>
+        /// <param name="i">номер строки</param>
+        /// <param name="j">номер столбца</param>
+        /// <returns></returns>
+        public int GetSymbol ( int i, int j )
+        {
+            return _nums[i, j].num;
+        }
+        public void AddCounter ( object a, MovingEventArgs arg )
+        {
+            if ( !_isWrongWay )
+            {
+                _iCount++;
+            }
+        }
+        public int GetCount 
         {
             get
             {
-                return _isWrongWay;        //Показать номер фишки
+                return _iCount;
             }
-            set
-            {
-                _isWrongWay = value;       //Установить номер фишки
-            }
-
         }
+        public Cell<int> this[int index1, int index2]
+        {
+            get
+            {
+                return _nums[index1, index2];
+            }
+        }
+        public int RowPosEmpty
+        {
+            get
+            {
+                return _rowPosEmpty;
+            }
+        }
+        public int ColPosEmpty
+        {
+            get
+            {
+                return _colPosEmpty;
+            }
+        }
+       
+        private int _iCount = 0;
         /// <summary>
         /// Номер строки пустого элемента
         /// </summary>
@@ -387,7 +468,8 @@ namespace BL
         /// <summary>
         /// массив фишек
         /// </summary>
-        private Cell[,] _nums;                      
+        private Button [,] _nums;
+        private int[,] sortArr;          
         /// <summary>
         /// Переменная ошибочного хода
         /// </summary>
