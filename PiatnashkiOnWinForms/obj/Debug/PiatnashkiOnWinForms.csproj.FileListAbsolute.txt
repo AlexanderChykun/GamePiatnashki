@@ -11,3 +11,29 @@ F:\с#\exam1\пятнашки вер2\PiatnashkiOnWinForms\obj\Debug\PiatnashkiO
 F:\с#\exam1\пятнашки вер2\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.GameForm.resources
 F:\с#\exam1\пятнашки вер2\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Retry.resources
 F:\с#\exam1\пятнашки вер2\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Ruls.resources
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.csprojResolveAssemblyReference.cache
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.GameForm.resources
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Properties.Resources.resources
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Retry.resources
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Ruls.resources
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.csproj.GenerateResource.Cache
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.exe
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.pdb
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\bin\Debug\PiatnashkiOnWinForms.exe.config
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\bin\Debug\PiatnashkiOnWinForms.exe
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\bin\Debug\PiatnashkiOnWinForms.pdb
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\bin\Debug\BL.dll
+F:\с#\exam1\пятнашки вер 2.3\PiatnashkiOnWinForms\bin\Debug\BL.pdb
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.csprojResolveAssemblyReference.cache
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.GameForm.resources
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Properties.Resources.resources
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Retry.resources
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.Ruls.resources
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.csproj.GenerateResource.Cache
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\bin\Debug\PiatnashkiOnWinForms.exe.config
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\bin\Debug\PiatnashkiOnWinForms.exe
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\bin\Debug\PiatnashkiOnWinForms.pdb
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\bin\Debug\BL.dll
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\bin\Debug\BL.pdb
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.exe
+F:\с#\exam1\пятнашки вер 2.4\PiatnashkiOnWinForms\obj\Debug\PiatnashkiOnWinForms.pdb

@@ -86,6 +86,7 @@
     <EmbeddedResource Include="Ruls.resx">
       <DependentUpon>Ruls.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="WinFormDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,10 +101,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj">
+    <ProjectReference Include="..\BL\GameLogic.csproj">
       <Project>{f93f604d-6e92-40ee-8785-5c206d073146}</Project>
-      <Name>BL</Name>
+      <Name>GameLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buttonImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

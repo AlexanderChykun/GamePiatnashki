@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD016914-1B83-4D8B-9F13-45760A3D8ECD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{F93F604D-6E92-40EE-8785-5C206D073146}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>piatnashki</RootNamespace>
-    <AssemblyName>piatnashki</AssemblyName>
+    <RootNamespace>BL</RootNamespace>
+    <AssemblyName>BL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,20 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ChangeCellsOfField.cs" />
+    <Compile Include="Coordinates.cs" />
+    <Compile Include="MyCell.cs" />
+    <Compile Include="Field.cs" />
+    <Compile Include="FillingGameField.cs" />
+    <Compile Include="Cell.cs" />
+    <Compile Include="ICellable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserController.cs" />
-    <Compile Include="Viewer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="consoleDiagram1.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BL\GameLogic.csproj">
-      <Project>{f93f604d-6e92-40ee-8785-5c206d073146}</Project>
-      <Name>GameLogic</Name>
-    </ProjectReference>
+    <None Include="GameLogicDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

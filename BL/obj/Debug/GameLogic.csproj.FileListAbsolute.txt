@@ -1,0 +1,5 @@
+F:\с#\exam1\пятнашки вер 2.4\BL\bin\Debug\BL.dll
+F:\с#\exam1\пятнашки вер 2.4\BL\bin\Debug\BL.pdb
+F:\с#\exam1\пятнашки вер 2.4\BL\obj\Debug\BL.dll
+F:\с#\exam1\пятнашки вер 2.4\BL\obj\Debug\BL.pdb
+F:\с#\exam1\пятнашки вер 2.4\BL\obj\Debug\GameLogic.csprojResolveAssemblyReference.cache

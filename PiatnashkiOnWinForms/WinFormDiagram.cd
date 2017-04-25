@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PiatnashkiOnWinForms.GameForm">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="PiatnashkiOnWinForms.GameForm.DificultLevel" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GameForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IQCAAACBICgAgDAJAIDAAECCAAI4AAUEAHCIgRBQhAI=</HashCode>
+      <FileName>GameForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_gameField" />
+      <Field Name="button1" />
+      <Field Name="field" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PiatnashkiOnWinForms.MyButton">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAABAAAAwAAAAAAgAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>MyButton.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cell" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="PiatnashkiOnWinForms.Program" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiatnashkiOnWinForms.Retry">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAYAAAAAGAAAAAAAAA=</HashCode>
+      <FileName>Retry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PiatnashkiOnWinForms.Ruls">
+    <Position X="6.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Ruls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Forms.Button" Collapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BL.MyCell" Collapsed="true">
+    <Position X="3.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="BL.Field" Collapsed="true">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

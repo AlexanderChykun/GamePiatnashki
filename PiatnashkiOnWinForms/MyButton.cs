@@ -14,14 +14,14 @@ namespace PiatnashkiOnWinForms
     class MyButton: Button
     {
        
-        public MyButton (Cell cell,int posX, int posY)
+        public MyButton (MyCell cell,int posX, int posY)
         {
             _posX = posX;
             _posY = posY;
             _cell = cell;
             Text = string.Format ( "{0}", cell.num );
         }
-        public Cell GetCell
+        public MyCell GetCell
         {
             get
             {
@@ -54,7 +54,7 @@ namespace PiatnashkiOnWinForms
                 _posY = value;       //Установить номер фишки
             }
         }
-        private Cell _cell;
+        private MyCell _cell;
         private int _posX;
         private int _posY;
     }

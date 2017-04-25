@@ -9,10 +9,16 @@ namespace BL
      public abstract class Cell<T> where T: IComparable<T>
     {
         public readonly ICellable _c;
-        public Cell (ICellable c, T num)
+        /// <summary>
+        /// Конструктор ячейки
+        /// </summary>
+        /// <param name="c">интерфейсная ссылка</param>
+        /// <param name="num">номер ячейки</param>
+        /// <param name="coord">координаты ячейки</param>
+        public Cell (ICellable c,  T num, Coordinates coord)
         {
             _c = c;
-           
+            _coord = coord;
             _num = num;
         }
         /// <summary>
@@ -29,8 +35,26 @@ namespace BL
                 _num = value;       //Установить номер фишки
             }
         }
-        public abstract void Move();
+        /// <summary>
+        /// Свойства координат фишки
+        /// </summary>
+        public Coordinates Coord
+        {
+            get
+            {
+                return _coord;
+            }
+            set
+            {
+                _coord = value;
+            }
+        }
+        /// <summary>
+        /// Абстрактный метод передвижения фишки
+        /// </summary>
+        public abstract void Move (  );
+
+        private Coordinates _coord;
         private T _num;        //Номер фишки
-       
     }
 }

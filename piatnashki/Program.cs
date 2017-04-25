@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using UserInterface;
 using BL;
 
 namespace piatnashki
@@ -14,49 +13,43 @@ namespace piatnashki
         /// <summary>
         /// Размерность поля по-умолчанию
         /// </summary>
-                          
-
         static void Main(string[] args)
         {
+            Coordinates defCoord = new Coordinates(0,0);
             bool newGame = true;
             bool cont = true;
             do{
                 cont = true;
                 int size = Field.defSize; 
-                size = UI.GetSizeOfField(Field.defSize);          //Задание размерности игрового поля
-            
+                size = Viewer.GetSizeOfField(Field.defSize);          //Задание размерности игрового поля
+                if ( size > 10 )
+                {
+                    size = Field.defSize;
+                }
                 Field num = new Field(size) ;
-                num.MovingUp += num.MoveUp;
-                num.MovingUp += num.AddCounter;
-                num.MovingRight += num.MoveRight;
-                num.MovingRight += num.AddCounter;
-                num.MovingDown += num.MoveDown;
-                num.MovingDown += num.AddCounter;
-                num.MovingLeft += num.MoveLeft;
-                num.MovingLeft += num.AddCounter;
-                num.MovingUp += UI.Counter;
-                num.MovingRight += UI.Counter;
-                num.MovingLeft += UI.Counter;
-                num.MovingDown += UI.Counter;
+                
+                num.Moving += num.Run;
+                num.AddingCounter += num.AddCounter;
+                num.AddingCounter += Viewer.Counter;
 
-                UI.NewGame();
+                Viewer.NewGame();
 
-                UI.NameOfGame ( size, Field.defSize );                    //Название игры
-                UI.MenuOfGame ( size, Field.defSize );                    //Меню игры
-                UI.InitField ( size );                              //Инициализация игрового поля
+                Viewer.NameOfGame ( size, Field.defSize );                    //Название игры
+                Viewer.MenuOfGame ( size, Field.defSize );                    //Меню игры
+                Viewer.InitField ( size );                              //Инициализация игрового поля
            
                 do
                 {
                     newGame = false;
-                    UI.ShowField ( num );                              //Отображение игрового поля
+                    Viewer.ShowField ( num );                              //Отображение игрового поля
                 
 
                     if (num.IsWinGame(size))                          //Проверка на собранность головоломки
                     {
-                        UI.Winner();
-                        UI.MenuAfterWin(num.GetCount);
+                        Viewer.Winner();
+                        Viewer.MenuAfterWin(num.GetCount);
                     }
-                    UI.GetUserAction (num, ref newGame, ref cont);
+                    UserController.GetUserAction (num,ref newGame, ref cont, ref defCoord );
                 
                 } while (cont);
             }while(newGame);

@@ -8,10 +8,11 @@ namespace BL
 {
     public interface ICellable
     {
-        void SearchEmptyCell ();
-        bool GetEmptyNeighborCell ( int posX, int posY );
-        bool IsWinGame ( int size );
-        int ColPosEmpty{get;}
+        bool GetEmptyNeighborCell ( Coordinates coord );
+        int ColPosEmpty { get; }
         int RowPosEmpty { get; }
+        bool IsWinGame ( int size ); 
+        void SwichCells ( MyCell cell );
+        
     }
 }

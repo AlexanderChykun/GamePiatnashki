@@ -13,45 +13,37 @@ namespace PiatnashkiOnWinForms
 {
     public partial class GameForm : Form
     {
+        
+
+        //TODO: сделать кнопки в виде пазлов???(на досуге)
+        //TODO: подготовить презентацию экзаменнки
+
+        enum DificultLevel
+        {
+            easy = 4,
+            medium = 5,
+            hard = 6,
+            veryHard = 7
+        }
+       
         public GameForm ()
         {
             InitializeComponent ();
+            Startsize = this.Size;
         }
         
         private void button1_Click ( object sender, EventArgs e )
         {
             tabControl1.DeselectTab ( 0 );
         }
-
+        
         private void tabPage2_Enter ( object sender, EventArgs e )
         {
-            size = (int) numericSize.Value;
-            int buttonSize = 40;
-            switch ( size )
-            {
-                case 4:
-                    {
-                        buttonSize = 40;
-                        break;
-                    }
-                case 5:
-                    {
-                        
-                        buttonSize = 35;
-                        break;
-                        
-                    }
-                case 6:
-                    {
-                        buttonSize = 30;
-                        break;
-                    }
-                case 7:
-                    {
-                        buttonSize = 28;
-                        break;
-                    }
-            }
+            int buttonSize = 50;
+            panel1.Controls.Clear();
+            _count = 0;
+            lblCount.Text = Convert.ToString(_count);
+            this.Size = new System.Drawing.Size ( size * buttonSize, size * buttonSize +3*buttonSize);
             field = new Field(size);
             _gameField = new MyButton[size, size];
             
@@ -60,10 +52,15 @@ namespace PiatnashkiOnWinForms
                 for ( int j = 0; j < _gameField.GetLength ( 1 ); j++ )
                 {
                     MyButton newButton = new MyButton ( field[i, j],i,j);
-                    newButton.Location = new System.Drawing.Point ( (int) ((j + 1) * buttonSize), (int) ((i + 1) * buttonSize ));
+                    newButton.BackgroundImage = ((System.Drawing.Image) (resources.GetObject ( "buttonImage" )));
+                    newButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+                    newButton.ForeColor = System.Drawing.Color.Gold;
+                    newButton.Font = new System.Drawing.Font ( "Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)) );
+                    newButton.Location = new System.Drawing.Point ( (j ) * buttonSize, (i) * buttonSize+1 );
                     newButton.Size = new System.Drawing.Size ( buttonSize, buttonSize );
-                    newButton.UseVisualStyleBackColor = true;
-                    grBoxGameField.Controls.Add(newButton);
+                    newButton.Tag = field[i, j].num;
+                    newButton.UseVisualStyleBackColor = false;
+                    panel1.Controls.Add ( newButton );
                     _gameField[i, j] = newButton;
                     _gameField[i, j].Click += buttonNum_Click;
                     if ( int.Parse(newButton.Text) == 0 )
@@ -78,75 +75,35 @@ namespace PiatnashkiOnWinForms
         {
             MyButton btnCurrent = sender as MyButton;
 
-            if (btnCurrent == null)
+            Coordinates coord = new Coordinates (btnCurrent.PosX,btnCurrent.PosY);
+            if (btnCurrent.GetCell._c.GetEmptyNeighborCell(coord))
             {
-                return;
-            }
+                _count++;
+                _gameField[btnCurrent.GetCell._c.ColPosEmpty, btnCurrent.GetCell._c.RowPosEmpty].GetCell.num
+                    = btnCurrent.GetCell.num;
+                _gameField[btnCurrent.GetCell._c.ColPosEmpty, btnCurrent.GetCell._c.RowPosEmpty].Text
+                    = btnCurrent.Text;
+                btnCurrent.GetCell.num = 0;
+                btnCurrent.Text = "0";
+                _gameField[btnCurrent.GetCell._c.ColPosEmpty, btnCurrent.GetCell._c.RowPosEmpty].Show ();
+                btnCurrent.Hide();
+                lblCount.Text = Convert.ToString ( _count );
 
-            if (btnCurrent.GetCell._c.GetEmptyNeighborCell(btnCurrent.PosX, btnCurrent.PosY))
-            {
-                _gameField[(sender as MyButton).GetCell._c.ColPosEmpty, (sender as MyButton).GetCell._c.RowPosEmpty].GetCell.num 
-                    = (sender as MyButton).GetCell.num;
-                _gameField[(sender as MyButton).GetCell._c.ColPosEmpty, (sender as MyButton).GetCell._c.RowPosEmpty].Text 
-                    = (sender as MyButton).Text;
-                (sender as MyButton).GetCell.num = 0;
-                (sender as MyButton).Text = "0";
-
-                foreach ( MyButton item in _gameField )
-                {
-                    item.Show ();
-                    if ( item.GetCell.num == 0 )
-                    {
-                        item.Hide ();// нулевую закрыть
-                    }
-                }
             }
             if ( (sender as MyButton).GetCell._c.IsWinGame ( size ) )
             {
-                MessageBox.Show ( "ВЫ ПОБЕДИЛИ!!!" );
-                if (  numericSize.Value != 7 )
-                {
-                     numericSize.Value += 1;
-                     tabPage2_Leave( this, e );
-                     tabPage2_Enter( this, e );
-                }
-                else
-                {
-                    MessageBox.Show ( "Игра закончена." );
-                }
+                StringBuilder sb = new StringBuilder ();
+                sb.Append ( "ВЫ ПОБЕДИЛИ!!!\n" );
+                sb.AppendFormat ( "Сделано ходов: {0}", _count );
+                MessageBox.Show (sb.ToString());
             } 
         }
-
-        private void tabControl1_Enter ( object sender, EventArgs e )
-        {
-        }
-
-        private void tabControl1_Leave ( object sender, EventArgs e )
-        {
-            
-        }
-
         private void tabPage2_Leave ( object sender, EventArgs e )
         {
-            for ( int i = 0; i < _gameField.GetLength ( 0 ); i++ )
-            {
-                for ( int j = 0; j < _gameField.GetLength ( 1 ); j++ )
-                {
-                    grBoxGameField.Controls.Remove ( _gameField[i, j] );
-                }
-            }
+            this.Size = Startsize;
         }
 
-        private void новаяИграToolStripMenuItem_Click ( object sender, EventArgs e )
-        {
-            Retry rt = new Retry ();
-            rt.ShowDialog ();
-            if ( IsRetry )
-            {
-                tabControl1.DeselectTab ( 1 );
-            }
-        }
-
+       
         private void tabBegin_Enter ( object sender, EventArgs e )
         {
             GameForm.IsRetry = false;
@@ -163,20 +120,51 @@ namespace PiatnashkiOnWinForms
             Close ();
         }
 
+        private void rbEasy_CheckedChanged ( object sender, EventArgs e )
+        {
+            size = (int)DificultLevel.easy;
+        }
+
+        private void rbMedium_CheckedChanged ( object sender, EventArgs e )
+        {
+            size = (int) DificultLevel.medium;
+        }
+
+        private void rbHard_CheckedChanged ( object sender, EventArgs e )
+        {
+            size = (int) DificultLevel.hard;
+        }
+
+        private void radioButton1_CheckedChanged ( object sender, EventArgs e )
+        {
+            size = (int) DificultLevel.veryHard;
+        }
+
+        private void новаяИграToolStripMenuItem1_Click ( object sender, EventArgs e )
+        {
+            Retry rt = new Retry ();
+            rt.ShowDialog ();
+            if ( IsRetry )
+            {
+                tabControl1.DeselectTab ( 1 );
+            }
+        }
+
+        private void выходToolStripMenuItem_Click ( object sender, EventArgs e )
+        {
+            button3_Click ( sender, e );
+        }
+
+        private void оПрограммеToolStripMenuItem_Click ( object sender, EventArgs e )
+        {
+            Ruls ruls = new Ruls ();
+            ruls.ShowDialog ();
+        }
         public static bool IsRetry = false;
         int size;
         Field field;
         MyButton[,] _gameField;
-
-        private void tabBegin_Resize(object sender, EventArgs e)
-        {
-            foreach (var item in Controls)
-            {
-                if (item is MyButton)
-                {
-                    
-                }
-            }
-        }
+        Size Startsize;
+        int _count = 0;
     }
 }
